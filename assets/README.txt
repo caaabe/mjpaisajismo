@@ -9,7 +9,7 @@ Contiene las fotos originales y los logos de la landing.
 - mjLogo.png y logo-full.png: logos disponibles.
 
 El comando php bin/seed.php importa referencias a estas 11 fotos en la
-base de datos, sin duplicarlas. Conserva los nombres genéricos existentes
+base de datos, sin duplicarlas. Asigna nombres editoriales distintos
 hasta que María José revise y agrupe sus trabajos reales.
 
 Las nuevas fotos se cargan desde /admin/ y se guardan en uploads/projects/.

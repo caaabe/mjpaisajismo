@@ -30,7 +30,7 @@ Landing y panel de proyectos para María José Suárez. PHP 8.2+, MySQL 8 o Mari
    php bin/seed.php
    ```
 
-   Conserva los títulos y año originales, que deben revisarse con María José; no supone qué fotos pertenecen al mismo trabajo. Para agruparlas, crear el proyecto real, subir sus fotos y ocultar los registros antiguos.
+   Asigna nombres editoriales distintos y conserva el año original, que deben revisarse con María José; no supone qué fotos pertenecen al mismo trabajo. Para agruparlas, crear el proyecto real, subir sus fotos y ocultar los registros antiguos.
 6. Dar escritura al usuario PHP en `uploads/projects/` (normalmente permisos 0755; no usar 0777).
 7. Entrar a `/admin/` y probar creación, borrador, publicación y recuperación por email.
 
@@ -101,3 +101,11 @@ MJ_TEST_DSN='mysql:host=127.0.0.1;dbname=mj_test;charset=utf8mb4' MJ_TEST_USER=m
 ```
 
 No usar credenciales de producción. El servidor de prueba usa el puerto 18080 y se detiene al terminar.
+
+Para asignar los nombres editoriales a una importación anterior:
+
+```sh
+php bin/name-original-projects.php
+```
+
+Solo cambia proyectos originales de una foto que todavía se llaman “Jardín residencial”. Conserva los títulos editados desde el panel.
