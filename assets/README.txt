@@ -1,31 +1,17 @@
 CARPETA /assets/
 ================
 
-Acá guardá las imágenes reales del sitio.
+Contiene las fotos originales y los logos de la landing.
 
-Archivos esperados (los nombres pueden cambiar, pero entonces hay
-que actualizar también los src del index.html):
+- portada.jpeg: portada principal (referenciada en styles.css).
+- jardin-01.jpeg a jardin-11.jpeg: imágenes originales de la galería.
+- jardin-04.jpeg: también se usa en la sección "Sobre mí" de index.php.
+- mjLogo.png y logo-full.png: logos disponibles.
 
-  portrait.jpg        Foto de María José para la sección "Sobre mí"
-                      Recomendado: vertical, 4:5, mínimo 800x1000px
+El comando php bin/seed.php importa referencias a estas 11 fotos en la
+base de datos, sin duplicarlas. Conserva los nombres genéricos existentes
+hasta que María José revise y agrupe sus trabajos reales.
 
-  proyecto-01.jpg     Proyecto destacado (se muestra grande en la galería)
-  proyecto-02.jpg     Proyecto chico
-  proyecto-03.jpg     Proyecto chico
-  proyecto-04.jpg     Proyecto destacado (formato horizontal)
-  proyecto-05.jpg     Proyecto chico
-  proyecto-06.jpg     Proyecto chico
-
-Recomendaciones:
-- Formato: .jpg (mejor compresión que PNG para fotos)
-- Ancho mínimo: 1200 px en el lado más largo
-- Calidad: 80 (con cualquier exportador o https://squoosh.app)
-- Peso ideal: < 250 KB por foto
-
-Mientras no haya fotos reales, el sitio carga imágenes de Unsplash
-de muestra. Para reemplazar:
-
-1) Pegá las fotos en esta carpeta con los nombres de arriba.
-2) Abrí index.html y, en la sección de la galería, cambiá los src
-   de las URLs de Unsplash por: src="assets/proyecto-01.jpg" (etc.)
-3) Lo mismo para el retrato en la sección "Sobre mí".
+Las nuevas fotos se cargan desde /admin/ y se guardan en uploads/projects/.
+No es necesario editar HTML, cambiar archivos de esta carpeta ni usar GitHub.
+La portada y la sección "Sobre mí" continúan editándose en el código.

@@ -1,0 +1,7 @@
+/app/config.local.php
+/uploads/projects/*
+!/uploads/projects/.gitkeep
+*.log
+.DS_Store
+__pycache__/
+*.pyc

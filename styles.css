@@ -703,3 +703,33 @@ code {
   }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Contenido visible incluso cuando JavaScript no está disponible. */
+.reveal { opacity: 1; transform: none; }
+html.has-observer .reveal { opacity: 0; transform: translateY(24px); }
+html.has-observer .reveal.is-visible { opacity: 1; transform: none; }
+.nav:not(.is-scrolled) .nav__brand-mark,
+.nav:not(.is-scrolled) .nav__brand-text,
+.nav:not(.is-scrolled) .nav__links a { color: #fff; }
+.nav:not(.is-scrolled) .nav__toggle span { background: #fff; }
+section[id] { scroll-margin-top: 85px; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 5px; }
+.gallery__open { width: 100%; height: 100%; text-align: left; display: block; }
+.gallery__caption { position: absolute; inset: auto 0 0; padding: 22px 24px; color: #fff; background: linear-gradient(0deg,rgba(0,0,0,.8),transparent); display: grid; gap: 4px; pointer-events: none; }
+.gallery__caption strong { font: 500 1.4rem var(--serif); }
+.gallery__caption>span { font-size: .8rem; }
+.project-dialog { margin: auto; padding: 0; border: 0; border-radius: 16px; width: min(960px,94vw); max-height: 92svh; overflow: auto; color: var(--ink); background: var(--bg); }
+.project-dialog::backdrop { background: rgba(10,20,12,.88); }
+.project-dialog__image { position: relative; background: #17221a; }
+.project-dialog__image img { width: 100%; height: min(62svh,640px); object-fit: contain; }
+.project-dialog__info { padding: 24px 32px; }
+#projectDescription { white-space: pre-line; margin-top: 12px; }
+#projectCounter, #projectMeta { font-size: .85rem; color: var(--ink-soft); }
+.dialog-close,.dialog-prev,.dialog-next { position: absolute; z-index: 2; background: #fff; color: #1f3324; border-radius: 50%; width: 44px; height: 44px; box-shadow: 0 2px 12px #0003; }
+.dialog-close { right: 12px; top: 12px; }
+.dialog-prev,.dialog-next { top: calc(50% - 22px); }
+.dialog-prev { left: 12px; }.dialog-next { right: 12px; }
+[hidden] { display: none !important; }
+.gallery-empty { text-align: center; }
+@media(max-width:720px){.nav:not(.is-scrolled) .nav__links a{color:var(--ink-soft)}.nav__toggle.is-open span{background:var(--ink)!important}}
+@media(prefers-reduced-motion:reduce){html.has-observer .reveal{opacity:1;transform:none}}

@@ -1,3 +1,13 @@
+<?php
+require __DIR__ . '/app/bootstrap.php';
+$projects = null;
+$galleryUnavailable = false;
+try { $projects = public_projects(); }
+catch (Throwable $e) {
+    error_log('No se pudo cargar la galería: ' . $e->getMessage());
+    if (is_file(ROOT . '/app/config.local.php') || getenv('MJ_CONFIG')) { $projects = []; $galleryUnavailable = true; }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +36,7 @@
         <span class="nav__brand-mark">MJ</span>
         <span class="nav__brand-text">Paisajismo</span>
       </a>
-      <nav class="nav__links" aria-label="Menú principal">
+      <nav id="navLinks" class="nav__links" aria-label="Menú principal">
         <a href="#sobre">Sobre mí</a>
         <a href="#servicios">Servicios</a>
         <a href="#proyectos">Proyectos</a>
@@ -36,7 +46,7 @@
       <a href="https://wa.me/59892664891" class="nav__cta" target="_blank" rel="noopener">
         WhatsApp
       </a>
-      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <button class="nav__toggle" id="navToggle" aria-controls="navLinks" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -92,7 +102,7 @@
       <div class="reveal">
         <figure class="portrait">
           <!-- Reemplazá por: assets/portrait.jpg (foto real de María José) -->
-          <img src="assets/jardin-04.jpeg" alt="Retrato de María José Suárez" loading="lazy" />
+          <img src="assets/jardin-04.jpeg" alt="Detalle de un jardín diseñado por MJ Paisajismo" loading="lazy" />
         </figure>
       </div>
     </div>
@@ -157,106 +167,27 @@
         </p>
       </div>
 
+      <?php if ($projects === null): require ROOT . '/app/gallery-fallback.php';
+      elseif (!$projects): ?>
+      <p class="gallery-empty"><?= $galleryUnavailable ? 'No pudimos cargar los proyectos. Podés volver a intentar o consultarnos por WhatsApp.' : 'Pronto compartiremos nuevos trabajos.' ?></p>
+      <?php else: ?>
       <div class="gallery">
-        <figure class="gallery__item gallery__item--tall reveal">
-          <img src="assets/jardin-01.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>01</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
+      <?php foreach ($projects as $i => $project): $cover = $project['photos'][0]; ?>
+        <figure class="gallery__item <?= $i % 7 === 0 ? 'gallery__item--tall' : '' ?> reveal">
+          <button type="button" class="gallery__open" data-project="<?= $i ?>" aria-label="<?= h('Ver fotos de ' . $project['title']) ?>">
+            <img src="<?= h($cover['path']) ?>" alt="<?= h($cover['alt'] ?: $project['title']) ?>" loading="lazy" decoding="async" />
+            <span class="gallery__caption"><span><?= count($project['photos']) ?> fotos</span><strong><?= h($project['title']) ?></strong><span><?= h(implode(' · ', array_filter([$project['location'], $project['year']]))) ?></span></span>
+          </button>
         </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-02.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>02</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-03.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>03</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item gallery__item--wide reveal">
-          <img src="assets/jardin-04.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>04</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-05.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>05</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-06.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>06</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-07.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>07</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-08.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>08</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item gallery__item--tall reveal">
-          <img src="assets/jardin-09.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>09</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-10.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>10</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
-
-        <figure class="gallery__item reveal">
-          <img src="assets/jardin-11.jpeg" alt="Jardín residencial" loading="lazy" />
-          <figcaption>
-            <span>11</span>
-            <h4>Jardín residencial</h4>
-            <p>Diseño exterior · 2025</p>
-          </figcaption>
-        </figure>
+      <?php endforeach ?>
       </div>
+      <dialog id="projectDialog" class="project-dialog" aria-labelledby="projectTitle">
+        <button type="button" class="dialog-close" aria-label="Cerrar proyecto">✕</button>
+        <div class="project-dialog__image"><button type="button" class="dialog-prev" aria-label="Foto anterior">←</button><img id="projectImage" alt=""><button type="button" class="dialog-next" aria-label="Foto siguiente">→</button></div>
+        <div class="project-dialog__info"><p id="projectCounter" aria-live="polite"></p><h2 id="projectTitle" class="h3"></h2><p id="projectMeta"></p><p id="projectDescription"></p></div>
+      </dialog>
+      <script type="application/json" id="projectData"><?= json_encode($projects, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_INVALID_UTF8_SUBSTITUTE) ?></script>
+      <?php endif ?>
     </div>
   </section>
 
@@ -330,7 +261,7 @@
       </div>
 
       <div class="reveal">
-        <form class="form" onsubmit="return handleSubmit(event)">
+        <form class="form" id="contactForm">
           <label class="form__field">
             <span>Nombre</span>
             <input type="text" name="nombre" required autocomplete="name" />
@@ -347,7 +278,7 @@
             <span>Contame sobre tu proyecto</span>
             <textarea name="mensaje" rows="4" required></textarea>
           </label>
-          <button type="submit" class="btn btn--primary btn--full">Enviar mensaje</button>
+          <button type="submit" class="btn btn--primary btn--full">Continuar en WhatsApp</button>
           <p class="form__hint" id="formHint" aria-live="polite"></p>
         </form>
       </div>
